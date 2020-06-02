@@ -14,28 +14,33 @@ const Doctor = () => {
     <View style={styles.page}>
       <View style={styles.content}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Gap height={30} />
-          <HomeProfile />
-          <Text style={styles.welcomeText}>
-            Mau konsultasi dengan siapa hari ini?
-          </Text>
+          <View style={styles.wrapperSection}>
+            <Gap height={30} />
+            <HomeProfile />
+            <Text style={styles.welcomeText}>
+              Mau konsultasi dengan siapa hari ini?
+            </Text>
+          </View>
           <View style={styles.wrapperScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
-                <Gap width={16} />
+                <Gap width={32} />
                 <DoctorCategory />
                 <DoctorCategory />
                 <DoctorCategory />
                 <DoctorCategory />
-                <Gap width={6} />
+                <Gap width={22} />
               </View>
             </ScrollView>
           </View>
-          <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-          <RatedDoctor />
-          <RatedDoctor />
-          <RatedDoctor />
-          <Text>Good News</Text>
+          <View style={styles.wrapperSection}>
+            <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
+            <RatedDoctor />
+            <RatedDoctor />
+            <RatedDoctor />
+            <Text style={styles.sectionLabel}>Good News</Text>
+          </View>
+          <NewsItem />
           <NewsItem />
           <NewsItem />
           <Gap height={30} />
@@ -55,10 +60,10 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: colors.white,
-    paddingHorizontal: 16,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
+  wrapperSection: { paddingHorizontal: 16 },
   welcomeText: {
     fontSize: 20,
     fontFamily: fonts.primary[600],
