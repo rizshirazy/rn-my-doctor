@@ -1,15 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ILCategoryUmum } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
-const DoctorCategory = () => {
+const DoctorCategory = ({ onPress }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <ILCategoryUmum style={styles.illustration} />
       <Text style={styles.label}>Saya butuh</Text>
       <Text style={styles.category}>dokter umum</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

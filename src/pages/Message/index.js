@@ -2,15 +2,28 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ListDoctor } from '../../components';
 import { colors, fonts } from '../../utils';
+import { DummyDoctor1 } from '../../assets';
 
 const Message = () => {
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.title}>Messages</Text>
-        <ListDoctor />
-        <ListDoctor />
-        <ListDoctor />
+        <ListDoctor
+          profile={DummyDoctor1}
+          name="Alexander Jennie"
+          desc="Ok baik bu"
+        />
+        <ListDoctor
+          profile={DummyDoctor1}
+          name="Alexander Jennie"
+          desc="Ok baik bu"
+        />
+        <ListDoctor
+          profile={DummyDoctor1}
+          name="Alexander Jennie"
+          desc="Ok baik bu"
+        />
       </View>
     </View>
   );

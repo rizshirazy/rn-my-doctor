@@ -3,11 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Gap, Button } from '../../atoms';
 import { colors, fonts } from '../../../utils';
 
-const Header = ({ title, leftButtonAction }) => {
+const Header = ({ title, leftButtonAction, type }) => {
   return (
-    <View style={styles.container}>
-      <Button type="icon-only" icon="back-dark" onPress={leftButtonAction} />
-      <Text style={styles.title}>{title}</Text>
+    <View style={styles.container(type)}>
+      <Button
+        type="icon-only"
+        icon={type === 'dark' ? 'back-light' : 'back-dark'}
+        onPress={leftButtonAction}
+      />
+      <Text style={styles.title(type)}>{title}</Text>
       <Gap width={24} />
     </View>
   );
@@ -16,18 +20,20 @@ const Header = ({ title, leftButtonAction }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  container: {
+  container: (type) => ({
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 25,
-    backgroundColor: colors.white,
+    backgroundColor: type === 'dark' ? colors.secondary : colors.white,
     alignItems: 'center',
-  },
-  title: {
+    borderBottomLeftRadius: type === 'dark' ? 20 : 0,
+    borderBottomRightRadius: type === 'dark' ? 20 : 0,
+  }),
+  title: (type) => ({
     flex: 1,
     textAlign: 'center',
     fontSize: 20,
     fontFamily: fonts.primary[600],
-    color: colors.text.primary,
-  },
+    color: type === 'dark' ? colors.white : colors.text.primary,
+  }),
 });
