@@ -17,6 +17,7 @@ const ChooseDoctor = ({ navigation }) => {
         name="Alexander Jennie"
         desc="Wanita"
         type="next"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         profile={DummyDoctor1}

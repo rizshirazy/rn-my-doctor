@@ -10,9 +10,10 @@ import {
   Doctor,
   Message,
   Hospital,
+  ChooseDoctor,
+  Chatting,
 } from '../pages';
 import { BottomNavigator } from '../components';
-import ChooseDoctor from '../pages/ChooseDoctor';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,6 +64,11 @@ const Router = () => {
       <Stack.Screen
         name="ChooseDoctor"
         component={ChooseDoctor}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Chatting"
+        component={Chatting}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
