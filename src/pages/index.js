@@ -1,13 +1,14 @@
-import Splash from './Splash';
-import GetStarted from './GetStarted';
-import Register from './Register';
-import Login from './Login';
-import UploadPhoto from './UploadPhoto';
-import Doctor from './Doctor';
-import Message from './Message';
-import Hospital from './Hospital';
-import ChooseDoctor from './ChooseDoctor';
 import Chatting from './Chatting';
+import ChooseDoctor from './ChooseDoctor';
+import Doctor from './Doctor';
+import GetStarted from './GetStarted';
+import Hospital from './Hospital';
+import Login from './Login';
+import Message from './Message';
+import Register from './Register';
+import Splash from './Splash';
+import UploadPhoto from './UploadPhoto';
+import UserProfile from './UserProfile';
 
 export {
   Splash,
@@ -20,4 +21,5 @@ export {
   Hospital,
   ChooseDoctor,
   Chatting,
+  UserProfile,
 };

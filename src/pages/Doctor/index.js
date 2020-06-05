@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
-  HomeProfile,
   DoctorCategory,
-  RatedDoctor,
-  NewsItem,
   Gap,
+  HomeProfile,
+  NewsItem,
+  RatedDoctor,
 } from '../../components';
-import { fonts, colors } from '../../utils';
+import { colors, fonts } from '../../utils';
 
 const Doctor = ({ navigation }) => {
   return (
@@ -16,7 +16,7 @@ const Doctor = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperSection}>
             <Gap height={30} />
-            <HomeProfile />
+            <HomeProfile onPress={() => navigation.navigate('UserProfile')} />
             <Text style={styles.welcomeText}>
               Mau konsultasi dengan siapa hari ini?
             </Text>
