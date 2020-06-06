@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import { Button, Gap, Header, Input, Loading } from '../../components';
 import { Fire } from '../../config';
 import { colors, useForm } from '../../utils';
@@ -18,14 +19,23 @@ const Register = ({ navigation }) => {
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then((success) => {
+        showMessage({
+          message: 'Success!',
+          type: 'success',
+        });
         setLoading(false);
+        setForm('reset');
         // navigation.navigate('UploadPhoto');
       })
       .catch((error) => {
-        setLoading(false);
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.warn(errorCode, errorMessage);
+        setLoading(false);
+        showMessage({
+          message: errorMessage,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
       });
   };
   return (
