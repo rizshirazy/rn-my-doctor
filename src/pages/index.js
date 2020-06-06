@@ -7,6 +7,7 @@ import Login from './Login';
 import Message from './Message';
 import Register from './Register';
 import Splash from './Splash';
+import UpdateProfile from './UpdateProfile';
 import UploadPhoto from './UploadPhoto';
 import UserProfile from './UserProfile';
 
@@ -22,4 +23,5 @@ export {
   ChooseDoctor,
   Chatting,
   UserProfile,
+  UpdateProfile,
 };
