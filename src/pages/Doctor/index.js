@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { DummyDoctor1, DummyDoctor2, DummyDoctor3 } from '../../assets';
 import {
   DoctorCategory,
   Gap,
@@ -43,9 +44,24 @@ const Doctor = ({ navigation }) => {
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-            <RatedDoctor />
-            <RatedDoctor />
-            <RatedDoctor />
+            <RatedDoctor
+              avatar={DummyDoctor1}
+              name="Alexa Rachel"
+              desc="Pediatrician"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
+            <RatedDoctor
+              avatar={DummyDoctor2}
+              name="Bobby Fernandes"
+              desc="Dentist"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
+            <RatedDoctor
+              avatar={DummyDoctor3}
+              name="Peo Minn"
+              desc="Podiatrist"
+              onPress={() => navigation.navigate('DoctorProfile')}
+            />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
           <NewsItem />

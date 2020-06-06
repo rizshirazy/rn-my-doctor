@@ -1,6 +1,7 @@
 import Chatting from './Chatting';
 import ChooseDoctor from './ChooseDoctor';
 import Doctor from './Doctor';
+import DoctorProfile from './DoctorProfile';
 import GetStarted from './GetStarted';
 import Hospital from './Hospital';
 import Login from './Login';
@@ -24,4 +25,5 @@ export {
   Chatting,
   UserProfile,
   UpdateProfile,
+  DoctorProfile,
 };

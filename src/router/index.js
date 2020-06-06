@@ -6,6 +6,7 @@ import {
   Chatting,
   ChooseDoctor,
   Doctor,
+  DoctorProfile,
   GetStarted,
   Hospital,
   Login,
@@ -81,6 +82,11 @@ const Router = () => {
       <Stack.Screen
         name="UpdateProfile"
         component={UpdateProfile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DoctorProfile"
+        component={DoctorProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
