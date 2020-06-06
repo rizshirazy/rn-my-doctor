@@ -10,6 +10,7 @@ const mainColors = {
   grey3: '#EDEFF0',
   white: '#FFFFFF',
   black: '#000000',
+  black2: 'rgba(0, 0, 0, 0.5)',
 };
 
 export const colors = {
@@ -41,4 +42,5 @@ export const colors = {
     light: mainColors.green2,
     dark: mainColors.green1,
   },
+  loadingBackground: mainColors.black2,
 };
