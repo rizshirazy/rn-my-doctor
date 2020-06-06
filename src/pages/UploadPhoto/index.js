@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Header, Button, Link, Gap } from '../../components';
-import { ILNullPhoto, IconAddPhoto } from '../../assets';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { IconAddPhoto, ILNullPhoto } from '../../assets';
+import { Button, Gap, Header, Link } from '../../components';
 import { colors, fonts } from '../../utils';
 
 const UploadPhoto = ({ navigation }) => {
@@ -21,9 +21,21 @@ const UploadPhoto = ({ navigation }) => {
           <Text style={styles.profession}>Product Designer</Text>
         </View>
         <View>
-          <Button title="Upload and Countinue" />
+          <Button
+            title="Upload and Countinue"
+            onPress={() =>
+              navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
+            }
+          />
           <Gap height={30} />
-          <Link title="Skip for this" align="center" size={16} />
+          <Link
+            title="Skip for this"
+            align="center"
+            size={16}
+            onPress={() =>
+              navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
+            }
+          />
         </View>
       </View>
     </View>

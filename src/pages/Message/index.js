@@ -4,7 +4,7 @@ import { DummyDoctor1 } from '../../assets';
 import { List } from '../../components';
 import { colors, fonts } from '../../utils';
 
-const Message = () => {
+const Message = ({ navigation }) => {
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -13,16 +13,19 @@ const Message = () => {
           profile={DummyDoctor1}
           name="Alexander Jennie"
           desc="Ok baik bu"
+          onPress={() => navigation.navigate('Chatting')}
         />
         <List
           profile={DummyDoctor1}
           name="Alexander Jennie"
           desc="Ok baik bu"
+          onPress={() => navigation.navigate('Chatting')}
         />
         <List
           profile={DummyDoctor1}
           name="Alexander Jennie"
           desc="Ok baik bu"
+          onPress={() => navigation.navigate('Chatting')}
         />
       </View>
     </View>
