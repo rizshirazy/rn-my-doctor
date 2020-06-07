@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import { IconAddPhoto, IconRemovePhoto, ILNullPhoto } from '../../assets';
 import { Button, Gap, Header, Link } from '../../components';
 import { Fire } from '../../config';
-import { colors, fonts } from '../../utils';
+import { colors, fonts, storeData } from '../../utils';
 
 const UploadPhoto = ({ navigation, route }) => {
   const { uid, fullName, profession } = route.params;
@@ -15,8 +15,10 @@ const UploadPhoto = ({ navigation, route }) => {
 
   const getImage = () => {
     ImagePicker.launchImageLibrary(
-      { quality: 0.3, maxWidth: 200, maxHeight: 200 },
+      { quality: 0.2, maxWidth: 200, maxHeight: 200 },
       (response) => {
+        console.log(response);
+
         if (response.didCancel || response.error) {
           showMessage({
             message: 'Ooops, no photo has been selected!',
@@ -26,11 +28,11 @@ const UploadPhoto = ({ navigation, route }) => {
           });
         } else {
           const source = { uri: response.uri };
-          const photoForDB = `data:${response.type};base64, ${response.data}`;
+          const photoBase64 = `data:${response.type};base64, ${response.data}`;
 
           setPhoto(source);
           setHasPhoto(true);
-          setPhotoForDB(photoForDB);
+          setPhotoForDB(photoBase64);
         }
       },
     );
@@ -38,6 +40,11 @@ const UploadPhoto = ({ navigation, route }) => {
 
   const uploadAndContinue = () => {
     Fire.database().ref(`users/${uid}/`).update({ photo: photoForDB });
+
+    const data = route.params;
+    data.photo = photoForDB;
+    storeData('user', data);
+
     navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
   };
   return (
