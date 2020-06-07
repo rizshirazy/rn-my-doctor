@@ -6,7 +6,7 @@ import { colors, fonts, getData } from '../../../utils';
 const HomeProfile = ({ onPress }) => {
   const [profile, setProfile] = useState({
     photo: ILNullPhoto,
-    fullName: '',
+    fullName: 'User',
     profession: '',
   });
 

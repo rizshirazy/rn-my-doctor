@@ -25,8 +25,8 @@ const Login = ({ navigation }) => {
           .then((resDB) => {
             if (resDB.val()) {
               // Store data to local storage
+              storeData('user', resDB.val());
               setLoading(false);
-              storeData(resDB.val());
               navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
             }
           });

@@ -29,7 +29,7 @@ const Register = ({ navigation }) => {
 
         Fire.database().ref(`users/${success.user.uid}/`).set(data);
 
-        storeData('USER', data);
+        storeData('user', data);
         setForm('reset');
         navigation.navigate('UploadPhoto', data);
       })
