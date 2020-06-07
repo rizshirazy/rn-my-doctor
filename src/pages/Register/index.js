@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 import { Button, Gap, Header, Input, Loading } from '../../components';
 import { Fire } from '../../config';
-import { colors, useForm } from '../../utils';
+import { colors, storeData, useForm } from '../../utils';
 
 const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -26,13 +26,11 @@ const Register = ({ navigation }) => {
           email: form.email,
         };
 
-        showMessage({
-          message: 'Success!',
-          type: 'success',
-        });
-        setForm('reset');
         Fire.database().ref(`users/${success.user.uid}/`).set(data);
-        // navigation.navigate('UploadPhoto');
+
+        storeData('USER', data);
+        setForm('reset');
+        navigation.navigate('UploadPhoto');
       })
       .catch((error) => {
         const errorMessage = error.message;
