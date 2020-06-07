@@ -19,12 +19,19 @@ const Register = ({ navigation }) => {
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then((success) => {
+        setLoading(false);
+        const data = {
+          fullName: form.fullName,
+          profession: form.profession,
+          email: form.email,
+        };
+
         showMessage({
           message: 'Success!',
           type: 'success',
         });
-        setLoading(false);
         setForm('reset');
+        Fire.database().ref(`users/${success.user.uid}/`).set(data);
         // navigation.navigate('UploadPhoto');
       })
       .catch((error) => {

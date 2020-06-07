@@ -1,10 +1,31 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { IconAddPhoto, ILNullPhoto } from '../../assets';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import ImagePicker from 'react-native-image-picker';
+import { IconAddPhoto, IconRemovePhoto, ILNullPhoto } from '../../assets';
 import { Button, Gap, Header, Link } from '../../components';
 import { colors, fonts } from '../../utils';
 
 const UploadPhoto = ({ navigation }) => {
+  const [hasPhoto, setHasPhoto] = useState(false);
+  const [photo, setPhoto] = useState(ILNullPhoto);
+
+  const getImage = () => {
+    ImagePicker.launchImageLibrary({}, (response) => {
+      if (response.didCancel || response.error) {
+        showMessage({
+          message: 'Ooops, no photo has been selected!',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      } else {
+        const source = { uri: response.uri };
+        setPhoto(source);
+        setHasPhoto(true);
+      }
+    });
+  };
   return (
     <View style={styles.container}>
       <Header
@@ -13,15 +34,20 @@ const UploadPhoto = ({ navigation }) => {
       />
       <View style={styles.content}>
         <View style={styles.profile}>
-          <View style={styles.avatarWrapper}>
-            <Image source={ILNullPhoto} style={styles.avatar} />
-            <IconAddPhoto style={styles.addPhoto} />
-          </View>
+          <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
+            <Image source={photo} style={styles.avatar} />
+            {hasPhoto ? (
+              <IconRemovePhoto style={styles.addPhoto} />
+            ) : (
+              <IconAddPhoto style={styles.addPhoto} />
+            )}
+          </TouchableOpacity>
           <Text style={styles.name}>Shayna Melinda</Text>
           <Text style={styles.profession}>Product Designer</Text>
         </View>
         <View>
           <Button
+            disabled={!hasPhoto}
             title="Upload and Countinue"
             onPress={() =>
               navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
@@ -63,6 +89,7 @@ const styles = StyleSheet.create({
   avatar: {
     height: 110,
     width: 110,
+    borderRadius: 110 / 2,
   },
   avatarWrapper: {
     height: 130,
@@ -76,8 +103,8 @@ const styles = StyleSheet.create({
   },
   addPhoto: {
     position: 'absolute',
-    bottom: 8,
-    right: 6,
+    bottom: 5,
+    right: 5,
   },
   name: {
     fontSize: 24,
