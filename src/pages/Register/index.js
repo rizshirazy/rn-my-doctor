@@ -21,6 +21,7 @@ const Register = ({ navigation }) => {
       .then((success) => {
         setLoading(false);
         const data = {
+          uid: success.user.uid,
           fullName: form.fullName,
           profession: form.profession,
           email: form.email,
@@ -30,7 +31,7 @@ const Register = ({ navigation }) => {
 
         storeData('USER', data);
         setForm('reset');
-        navigation.navigate('UploadPhoto');
+        navigation.navigate('UploadPhoto', data);
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -67,7 +68,7 @@ const Register = ({ navigation }) => {
             <Input
               label="Email"
               value={form.email}
-              onChangeText={(value) => setForm('email', value)}
+              onChangeText={(value) => setForm('email', value.trim())}
             />
             <Gap height={24} />
             <Input

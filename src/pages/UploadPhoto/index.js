@@ -4,27 +4,41 @@ import { showMessage } from 'react-native-flash-message';
 import ImagePicker from 'react-native-image-picker';
 import { IconAddPhoto, IconRemovePhoto, ILNullPhoto } from '../../assets';
 import { Button, Gap, Header, Link } from '../../components';
+import { Fire } from '../../config';
 import { colors, fonts } from '../../utils';
 
-const UploadPhoto = ({ navigation }) => {
+const UploadPhoto = ({ navigation, route }) => {
+  const { uid, fullName, profession } = route.params;
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
+  const [photoForDB, setPhotoForDB] = useState('');
 
   const getImage = () => {
-    ImagePicker.launchImageLibrary({}, (response) => {
-      if (response.didCancel || response.error) {
-        showMessage({
-          message: 'Ooops, no photo has been selected!',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
-      } else {
-        const source = { uri: response.uri };
-        setPhoto(source);
-        setHasPhoto(true);
-      }
-    });
+    ImagePicker.launchImageLibrary(
+      { quality: 0.3, maxWidth: 200, maxHeight: 200 },
+      (response) => {
+        if (response.didCancel || response.error) {
+          showMessage({
+            message: 'Ooops, no photo has been selected!',
+            type: 'default',
+            backgroundColor: colors.error,
+            color: colors.white,
+          });
+        } else {
+          const source = { uri: response.uri };
+          const photoForDB = `data:${response.type};base64, ${response.data}`;
+
+          setPhoto(source);
+          setHasPhoto(true);
+          setPhotoForDB(photoForDB);
+        }
+      },
+    );
+  };
+
+  const uploadAndContinue = () => {
+    Fire.database().ref(`users/${uid}/`).update({ photo: photoForDB });
+    navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] });
   };
   return (
     <View style={styles.container}>
@@ -42,16 +56,14 @@ const UploadPhoto = ({ navigation }) => {
               <IconAddPhoto style={styles.addPhoto} />
             )}
           </TouchableOpacity>
-          <Text style={styles.name}>Shayna Melinda</Text>
-          <Text style={styles.profession}>Product Designer</Text>
+          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
           <Button
             disabled={!hasPhoto}
             title="Upload and Countinue"
-            onPress={() =>
-              navigation.reset({ index: 0, routes: [{ name: 'MainApp' }] })
-            }
+            onPress={uploadAndContinue}
           />
           <Gap height={30} />
           <Link
