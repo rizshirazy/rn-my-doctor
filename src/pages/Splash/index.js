@@ -1,12 +1,34 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ILLogo } from '../../assets';
-import { colors, fonts } from '../../utils';
+import { Fire } from '../../config';
+import { colors, fonts, storeData } from '../../utils';
 
 const Splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('GetStarted');
+      Fire.auth().onAuthStateChanged((user) => {
+        if (user && user.uid) {
+          console.log('user :', user);
+          Fire.database()
+            .ref(`users/${user.uid}/`)
+            .once('value')
+            .then((resDB) => {
+              if (resDB.val()) {
+                // Store data to local storage
+                storeData('user', resDB.val());
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'MainApp' }],
+                });
+              }
+            });
+          // navigation.replace('MainApp');
+        } else {
+          console.log('no user');
+          // navigation.replace('GetStarted');
+        }
+      });
     }, 3000);
   }, [navigation]);
 
