@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import { ILNullPhoto } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
+import Fire from '../../config/Fire';
 import { colors, getData } from '../../utils';
 
 const UserProfile = ({ navigation }) => {
@@ -18,6 +20,26 @@ const UserProfile = ({ navigation }) => {
       setProfile(data);
     });
   }, [profile]);
+
+  const signOut = () => {
+    Fire.auth()
+      .signOut()
+      .then(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'GetStarted' }],
+        });
+      })
+      .catch((err) =>
+        showMessage({
+          message: err.message,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        }),
+      );
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Profile" leftButtonAction={() => navigation.goBack()} />
@@ -51,10 +73,11 @@ const UserProfile = ({ navigation }) => {
         icon="rate"
       />
       <List
-        name="Edit Profile"
+        name="Sign Out"
         desc="Last Updated Yesterday"
         type="next"
         icon="help"
+        onPress={signOut}
       />
     </View>
   );
