@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { DummyDoctor1, DummyDoctor2, DummyDoctor3 } from '../../assets';
 import {
@@ -8,9 +8,32 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
+import { Fire } from '../../config';
 import { colors, fonts } from '../../utils';
 
 const Doctor = ({ navigation }) => {
+  const [news, setNews] = useState([]);
+  const [doctorCategory, setDoctorCategory] = useState([]);
+
+  useEffect(() => {
+    Fire.database()
+      .ref('news')
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          setNews(res.val());
+        }
+      });
+
+    Fire.database()
+      .ref('category_doctor')
+      .once('value')
+      .then((res) => {
+        if (res.val()) {
+          setDoctorCategory(res.val());
+        }
+      });
+  }, []);
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -26,18 +49,13 @@ const Doctor = ({ navigation }) => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={32} />
-                <DoctorCategory
-                  onPress={() => navigation.navigate('ChooseDoctor')}
-                />
-                <DoctorCategory
-                  onPress={() => navigation.navigate('ChooseDoctor')}
-                />
-                <DoctorCategory
-                  onPress={() => navigation.navigate('ChooseDoctor')}
-                />
-                <DoctorCategory
-                  onPress={() => navigation.navigate('ChooseDoctor')}
-                />
+                {doctorCategory.map((item) => (
+                  <DoctorCategory
+                    key={item.id}
+                    category={item.category}
+                    onPress={() => navigation.navigate('ChooseDoctor')}
+                  />
+                ))}
                 <Gap width={22} />
               </View>
             </ScrollView>
@@ -64,9 +82,14 @@ const Doctor = ({ navigation }) => {
             />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
+          {news.map((item) => (
+            <NewsItem
+              key={item.id}
+              title={item.title}
+              date={item.date}
+              image={item.image}
+            />
+          ))}
           <Gap height={30} />
         </ScrollView>
       </View>
