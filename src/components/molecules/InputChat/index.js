@@ -1,13 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import { Button } from '../../atoms';
 
-const InputChat = () => {
+const InputChat = ({ value, onChangeText, onButtonPress }) => {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Tulis pesan..." />
-      <Button type="btn-icon-send" />
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        placeholder="Tulis pesan..."
+      />
+      <Button
+        disabled={value.length < 1}
+        type="btn-icon-send"
+        onPress={onButtonPress}
+      />
     </View>
   );
 };

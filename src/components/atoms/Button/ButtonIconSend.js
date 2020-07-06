@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IconSendDark, IconSendLight } from '../../../assets';
 import { colors } from '../../../utils';
 
-const ButtonIconSend = ({ disabled }) => {
+const ButtonIconSend = ({ disabled, onPress }) => {
+  if (disabled) {
+    return (
+      <View style={styles.container(disabled)}>
+        <IconSendDark />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container(disabled)}>
-      {disabled ? <IconSendDark /> : <IconSendLight />}
-    </View>
+    <TouchableOpacity style={styles.container(disabled)} onPress={onPress}>
+      <IconSendLight />
+    </TouchableOpacity>
   );
 };
 

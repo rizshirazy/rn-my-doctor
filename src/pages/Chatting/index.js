@@ -1,24 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Header, ChatItem, InputChat } from '../../components';
-import { fonts, colors } from '../../utils';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ChatItem, Header, InputChat } from '../../components';
+import { colors, fonts } from '../../utils';
 
-const Chatting = ({ navigation }) => {
+const Chatting = ({ navigation, route }) => {
+  const dataDoctor = route.params;
+
   return (
     <View style={styles.container}>
       <Header
         type="dark-profile"
-        title="Nairobi Putri Hayza"
-        subtitle="Dokter Anak"
+        title={dataDoctor.data.fullName}
+        subtitle={dataDoctor.data.profession}
         leftButtonAction={() => navigation.goBack()}
+        avatar={{ uri: dataDoctor.data.photo }}
       />
       <View style={styles.content}>
-        <Text style={styles.chatDate}>Kamis, 4 Juni 2020</Text>
-        <ChatItem self />
-        <ChatItem />
-        <ChatItem self />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.chatDate}>Kamis, 4 Juni 2020</Text>
+          <ChatItem self />
+          <ChatItem />
+          <ChatItem self />
+        </ScrollView>
       </View>
-      <InputChat />
+      <InputChat
+        value=""
+        onChangeText={() => alert('input tap')}
+        onButtonPress={() => alert('button press')}
+      />
     </View>
   );
 };

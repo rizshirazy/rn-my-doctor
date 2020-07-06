@@ -52,7 +52,6 @@ const Doctor = ({ navigation }) => {
       .limitToLast(3)
       .once('value')
       .then((res) => {
-        console.log('top rated doctor', JSON.stringify(res.val(), '', 2));
         if (res.val()) {
           const obj = res.val();
           const data = [];
@@ -87,7 +86,7 @@ const Doctor = ({ navigation }) => {
                   <DoctorCategory
                     key={item.id}
                     category={item.category}
-                    onPress={() => navigation.navigate('ChooseDoctor')}
+                    onPress={() => navigation.navigate('ChooseDoctor', item)}
                   />
                 ))}
                 <Gap width={22} />
@@ -96,12 +95,13 @@ const Doctor = ({ navigation }) => {
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-            {doctors.map((item) => (
+            {doctors.map((doctor) => (
               <RatedDoctor
-                avatar={{ uri: item.data.photo }}
-                name={item.data.fullName}
-                desc={item.data.category}
-                onPress={() => navigation.navigate('DoctorProfile')}
+                key={doctor.id}
+                avatar={{ uri: doctor.data.photo }}
+                name={doctor.data.fullName}
+                desc={doctor.data.category}
+                onPress={() => navigation.navigate('DoctorProfile', doctor)}
               />
             ))}
             <Text style={styles.sectionLabel}>Good News</Text>

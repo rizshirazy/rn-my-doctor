@@ -1,16 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Gap, Button } from '../../atoms';
 import { colors, fonts } from '../../../utils';
+import { Button, Gap } from '../../atoms';
 import DarkProfile from './DarkProfile';
 
-const Header = ({ title, leftButtonAction, type, subtitle }) => {
+const Header = ({ title, leftButtonAction, type, subtitle, avatar }) => {
   if (type === 'dark-profile') {
     return (
       <DarkProfile
         title={title}
         subtitle={subtitle}
         leftButtonAction={leftButtonAction}
+        avatar={avatar}
       />
     );
   }
@@ -46,5 +47,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: fonts.primary[600],
     color: type === 'dark' ? colors.white : colors.text.primary,
+    textTransform: 'capitalize',
   }),
 });

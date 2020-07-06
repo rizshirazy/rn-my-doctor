@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import { Button } from '../../atoms';
-import { DummyDoctor9 } from '../../../assets';
 
-const DarkProfile = ({ title, subtitle, profile, leftButtonAction }) => {
+const DarkProfile = ({ title, subtitle, avatar, leftButtonAction }) => {
   return (
     <View style={styles.container}>
       <Button type="icon-only" icon="back-light" onPress={leftButtonAction} />
@@ -12,7 +11,7 @@ const DarkProfile = ({ title, subtitle, profile, leftButtonAction }) => {
         <Text style={styles.name}>{title}</Text>
         <Text style={styles.desc}>{subtitle}</Text>
       </View>
-      <Image source={DummyDoctor9} style={styles.avatar} />
+      <Image source={avatar} style={styles.avatar} />
     </View>
   );
 };
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
     color: colors.text.subTitle,
     textAlign: 'center',
     marginTop: 6,
+    textTransform: 'capitalize',
   },
   avatar: {
     width: 46,
