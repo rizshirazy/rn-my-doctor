@@ -9,7 +9,6 @@ const Splash = ({ navigation }) => {
     setTimeout(() => {
       Fire.auth().onAuthStateChanged((user) => {
         if (user && user.uid) {
-          console.log('user :', user);
           Fire.database()
             .ref(`users/${user.uid}/`)
             .once('value')
@@ -25,8 +24,7 @@ const Splash = ({ navigation }) => {
             });
           // navigation.replace('MainApp');
         } else {
-          console.log('no user');
-          // navigation.replace('GetStarted');
+          navigation.replace('GetStarted');
         }
       });
     }, 3000);
