@@ -2,11 +2,11 @@ import React from 'react';
 import MessageIn from './MessageIn';
 import MessageOut from './MessageOut';
 
-const ChatItem = ({ self }) => {
+const ChatItem = ({ self, text, date }) => {
   if (self) {
-    return <MessageOut />;
+    return <MessageOut text={text} date={date} />;
   }
-  return <MessageIn />;
+  return <MessageIn text={text} date={date} />;
 };
 
 export default ChatItem;

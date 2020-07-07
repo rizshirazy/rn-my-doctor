@@ -15,14 +15,42 @@ const Chatting = ({ navigation, route }) => {
   const dataDoctor = route.params;
   const [chatContent, setChatContent] = useState('');
   const [user, setUser] = useState({});
+  const [chatData, setChatData] = useState([]);
+
+  const chatId = `${user.uid}_${dataDoctor.data.uid}`;
 
   useEffect(() => {
+    getDataUserFromLocal();
+
+    const urlFirebase = `chatting/${chatId}/allChat/`;
+    Fire.database()
+      .ref(urlFirebase)
+      .on('value', (snapshot) => {
+        if (snapshot.val()) {
+          const dataSnapshot = snapshot.val();
+          const allDataChat = [];
+          Object.keys(dataSnapshot).map((key) => {
+            const dataChat = dataSnapshot[key];
+            const newDataChat = [];
+
+            Object.keys(dataChat).map((itemChat) => {
+              newDataChat.push({ id: itemChat, data: dataChat[itemChat] });
+            });
+
+            allDataChat.push({ id: key, data: newDataChat });
+          });
+
+          setChatData(allDataChat);
+        }
+      });
+  }, [chatId]);
+
+  const getDataUserFromLocal = () => {
     getData('user').then((res) => setUser(res));
-  }, []);
+  };
 
   const chatSend = () => {
     const today = new Date();
-    const chatId = `${user.uid}_${dataDoctor.data.uid}`;
     const urlFirebase = `chatting/${chatId}/allChat/${setChatDate(today)}`;
 
     const data = {
@@ -52,10 +80,19 @@ const Chatting = ({ navigation, route }) => {
       />
       <View style={styles.content}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.chatDate}>Kamis, 4 Juni 2020</Text>
-          <ChatItem self />
-          <ChatItem />
-          <ChatItem self />
+          {chatData.map((chat) => (
+            <View key={chat.id}>
+              <Text style={styles.chatDate}>{chat.id}</Text>
+              {chat.data.map((itemChat) => (
+                <ChatItem
+                  key={itemChat.id}
+                  self={itemChat.data.sendBy === user.uid}
+                  text={itemChat.data.chatContent}
+                  date={itemChat.data.chatTime}
+                />
+              ))}
+            </View>
+          ))}
         </ScrollView>
       </View>
       <InputChat

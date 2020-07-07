@@ -3,17 +3,15 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { DummyDoctor9 } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
-const MessageIn = () => {
+const MessageIn = ({ text, date }) => {
   return (
     <View style={styles.container}>
       <Image source={DummyDoctor9} style={styles.avatar} />
       <View>
         <View style={styles.chatContent}>
-          <Text style={styles.text}>
-            Ibu dokter, apakah memakan jeruk tiap hari itu buruk?
-          </Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.time}>4.20 PM</Text>
+        <Text style={styles.time}>{date}</Text>
       </View>
     </View>
   );
