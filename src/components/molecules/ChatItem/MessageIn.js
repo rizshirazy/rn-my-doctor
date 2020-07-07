@@ -1,12 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { DummyDoctor9 } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
-const MessageIn = ({ text, date }) => {
+const MessageIn = ({ text, date, photo }) => {
   return (
     <View style={styles.container}>
-      <Image source={DummyDoctor9} style={styles.avatar} />
+      <Image source={photo} style={styles.avatar} />
       <View>
         <View style={styles.chatContent}>
           <Text style={styles.text}>{text}</Text>
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingRight: 18,
     backgroundColor: colors.card.dark,
-    maxWidth: '80%',
     borderRadius: 10,
     borderBottomLeftRadius: 0,
   },
